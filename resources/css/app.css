@@ -1,3 +1,35 @@
+@import '@fontsource/urbanist/400.css';
+@import '@fontsource/urbanist/500.css';
+@import '@fontsource/urbanist/600.css';
+@import '@fontsource/urbanist/700.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+/* Efecto redondeado con ::before y ::after */
+.sidebar-active::before,
+.sidebar-active::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    width: 16px;
+    height: 16px;
+    background: #E6E8EE;
+    -webkit-mask-image: radial-gradient(circle at top left, transparent 15px, black 16px);
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-size: 100% 100%;
+    mask-image: radial-gradient(circle at top left, transparent 15px, black 16px);
+    mask-repeat: no-repeat;
+    mask-size: 100% 100%;
+}
+
+.sidebar-active::before {
+    top: -16px;
+}
+
+.sidebar-active::after {
+    bottom: -16px;
+    transform: rotate(270deg);
+}

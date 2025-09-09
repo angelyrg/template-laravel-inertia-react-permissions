@@ -11,8 +11,15 @@
     ],
     "parserOptions": {
         "ecmaVersion": "latest",
+        "ecmaFeatures": {
+            "jsx": true
+        },
         "sourceType": "module"
     },
+    "plugins": [
+        "react",
+        "prettier"
+    ],
     "rules": {
         "semi": "off",
         "react/react-in-jsx-scope": "off",
