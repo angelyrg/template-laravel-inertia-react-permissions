@@ -2,7 +2,7 @@ import Modal from '@/Components/ui/Modal'
 import PrimaryButton from '@/Components/ui/PrimaryButton'
 import TextInput from '@/Components/ui/TextInput'
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
-import { router, usePage } from '@inertiajs/react'
+import { Head, router, usePage } from '@inertiajs/react'
 import { DataGrid } from '@mui/x-data-grid'
 import { esES } from '@mui/x-data-grid/locales'
 import { useState } from 'react'
@@ -98,7 +98,9 @@ export default function Index() {
     }
 
     return (
-        <AuthenticatedLayout>
+        <AuthenticatedLayout title={'Usuarios'}>
+            <Head title="Usuarios" />
+
             <div className="p-6">
                 <div className="flex items-center justify-between">
                     <h1 className="mb-4 text-2xl font-bold">Usuarios</h1>
@@ -107,9 +109,7 @@ export default function Index() {
 
                 <div style={{ height: 800, width: '100%' }}>
                     <DataGrid
-                        localeText={
-                            esES.components.MuiDataGrid.defaultProps.localeText
-                        }
+                        localeText={esES.components.MuiDataGrid.defaultProps.localeText}
                         rows={rows}
                         columns={columns}
                         pageSize={5}
@@ -160,10 +160,7 @@ export default function Index() {
                                 >
                                     Cancelar
                                 </PrimaryButton>
-                                <PrimaryButton
-                                    type="submit"
-                                    loading={isProcessing}
-                                >
+                                <PrimaryButton type="submit" loading={isProcessing}>
                                     Guardar
                                 </PrimaryButton>
                             </div>
@@ -172,14 +169,9 @@ export default function Index() {
                 </Modal>
 
                 {/* Modal Delete Confirmation */}
-                <Modal
-                    show={isDeleteOpen}
-                    onClose={() => setIsDeleteOpen(false)}
-                >
+                <Modal show={isDeleteOpen} onClose={() => setIsDeleteOpen(false)}>
                     <div className="p-6">
-                        <h2 className="mb-4 text-xl font-bold">
-                            Confirmar Eliminación
-                        </h2>
+                        <h2 className="mb-4 text-xl font-bold">Confirmar Eliminación</h2>
                         <p>¿Seguro que deseas eliminar este usuario?</p>
                         <div className="mt-4 flex justify-end gap-2">
                             <PrimaryButton

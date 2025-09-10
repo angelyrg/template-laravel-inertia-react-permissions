@@ -1,25 +1,21 @@
-import ApplicationLogo from '@/Components/ApplicationLogo'
-import { Icon } from '@/Components/icons/Icon'
+import { Icon } from '@/Components/ui/Icon'
 import { Link } from '@inertiajs/react'
+
+import brandLogo from '@images/lyk_logo.webp'
 
 export const SidebarHeader = ({ isCollapsed, onToggle }) => {
     return (
         <div className="flex items-center justify-between border-b border-primary-accent p-4">
             {!isCollapsed && (
                 <Link href="/">
-                    <ApplicationLogo className="h-7 w-auto text-white" />
+                    <img src={brandLogo} className="w-24" alt="LyK" />
                 </Link>
             )}
             <button
                 onClick={onToggle}
-                className="rounded p-1 transition-colors hover:bg-primary-accent focus:outline-none focus:ring-2 focus:ring-primary-accent"
-                aria-label={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+                className="rounded p-1 transition-colors hover:bg-primary-accent"
             >
-                {isCollapsed ? (
-                    <Icon name="menu" className="h-5 w-5" />
-                ) : (
-                    <Icon name="close" className="h-5 w-5" />
-                )}
+                <Icon icon={isCollapsed ? 'menu' : 'close'} className="h-5 w-5 text-white" />
             </button>
         </div>
     )

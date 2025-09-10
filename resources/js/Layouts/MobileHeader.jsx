@@ -1,4 +1,4 @@
-import { Icon } from '@/Components/icons/Icon'
+import { PhUsersLight } from '@/Components/icons/PhUsersLight'
 
 export const MobileHeader = ({ onMenuToggle }) => {
     return (
@@ -8,7 +8,7 @@ export const MobileHeader = ({ onMenuToggle }) => {
                 className="rounded-md p-1 text-gray-600 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-primary"
                 aria-label="Open menu"
             >
-                <Icon name="menu" className="h-5 w-5" />
+                <PhUsersLight className="h-5 w-5" />
             </button>
         </div>
     )

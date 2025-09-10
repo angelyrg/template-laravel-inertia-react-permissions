@@ -1,9 +1,8 @@
-// components/layout/MainLayout.jsx
 import { useEffect, useState } from 'react'
-import { MobileHeader } from './MobileHeader'
+import { Navbar } from './Navbar'
 import { Sidebar } from './Sidebar/Sidebar'
 
-export const MainLayout = ({ children }) => {
+export const MainLayout = ({ children, title = 'Dashboard' }) => {
     const [isCollapsed, setIsCollapsed] = useState(false)
     const [isMobile, setIsMobile] = useState(false)
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -39,11 +38,11 @@ export const MainLayout = ({ children }) => {
     }
 
     return (
-        <div className="flex h-screen bg-gray-100">
+        <div className="bg-surface flex h-screen">
             {/* Overlay para móvil */}
             {isMobile && isMobileMenuOpen && (
                 <div
-                    className="fixed inset-0 z-20 bg-black bg-opacity-50"
+                    className="fixed inset-0 z-20 bg-black bg-opacity-50 md:hidden"
                     onClick={closeMobileMenu}
                 />
             )}
@@ -57,9 +56,13 @@ export const MainLayout = ({ children }) => {
 
             {/* Contenido principal */}
             <div
-                className={`flex flex-1 flex-col ${isCollapsed && !isMobile ? '' : 'ml-0'} transition-all duration-300`}
+                className={`flex flex-1 flex-col px-4 transition-all duration-300 sm:px-6 lg:px-8`}
             >
-                {isMobile && <MobileHeader onMenuToggle={toggleSidebar} />}
+                <Navbar
+                    title={title}
+                    onMenuToggle={toggleSidebar}
+                    showMobileMenuButton={isMobile}
+                />
 
                 <main className="flex-1 overflow-y-auto p-4 md:p-6">{children}</main>
             </div>
