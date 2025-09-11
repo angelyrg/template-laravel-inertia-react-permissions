@@ -1,10 +1,10 @@
 import { Icon } from '@/Components/ui/Icon'
-import { usePage } from '@inertiajs/react'
+// import { usePage } from '@inertiajs/react'
 import { Notifications } from './Notifications'
 import { UserProfile } from './UserProfile'
 
 export const Navbar = ({ title = 'Dashboard', onMenuToggle, showMobileMenuButton = true }) => {
-    const { auth } = usePage().props
+    // const { auth } = usePage().props
 
     return (
         <nav className="px-6 py-3">

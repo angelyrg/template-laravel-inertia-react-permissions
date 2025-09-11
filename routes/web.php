@@ -33,6 +33,10 @@ Route::middleware('auth')->group(function () {
 
 
 Route::resource('users', UserController::class)->middleware(['auth'])->names('users');
+Route::post('users/batch-delete', [UserController::class, 'batchDelete'])
+    ->middleware(['auth'])
+    ->name('users.batch-delete');
+
 Route::resource('roles', RoleController::class)->middleware(['auth'])->names('roles');
 Route::put('/roles/{role}/permissions', [RoleController::class, 'updatePermissions'])->name('roles.updatePermissions');
 Route::resource('permissions', PermissionController::class)->middleware(['auth'])->names('permissions');
