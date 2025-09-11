@@ -38,7 +38,7 @@ export const MainLayout = ({ children, title = 'Dashboard' }) => {
     }
 
     return (
-        <div className="bg-surface flex h-screen">
+        <div className="flex h-screen bg-surface">
             {/* Overlay para móvil */}
             {isMobile && isMobileMenuOpen && (
                 <div

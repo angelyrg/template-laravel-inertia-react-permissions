@@ -6,7 +6,7 @@ export const SidebarNavItem = ({ href, icon, children, isCollapsed = false, acti
             href={href}
             className={`relative flex cursor-pointer items-center gap-3 px-4 py-3 transition-all ${
                 active
-                    ? 'sidebar-active bg-surface rounded-l-full font-medium text-primary'
+                    ? 'sidebar-active rounded-l-full bg-surface font-medium text-primary'
                     : 'text-white hover:rounded-2xl hover:bg-primary-accent'
             } `}
         >
