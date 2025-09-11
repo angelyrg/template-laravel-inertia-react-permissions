@@ -1,6 +1,6 @@
 import { Dropdown, DropdownItem } from '@/Components/ui/Dropdown'
 import { Icon } from '@/Components/ui/Icon'
-import { usePage } from '@inertiajs/react'
+import { router, usePage } from '@inertiajs/react'
 
 export const UserProfile = () => {
     const { auth } = usePage().props
@@ -30,14 +30,14 @@ export const UserProfile = () => {
                 </div>
             </div>
 
-            <DropdownItem href={route('profile.edit')}>
+            <DropdownItem onClick={() => router.get(route('profile.edit'))}>
                 <div className="flex items-center">
                     <Icon icon="user" className="mr-2 h-4 w-4 flex-shrink-0" />
                     <span className="truncate">Mi Perfil</span>
                 </div>
             </DropdownItem>
 
-            <DropdownItem href={'#'}>
+            <DropdownItem onClick={() => null}>
                 <div className="flex items-center">
                     <Icon icon="settings" className="mr-2 h-4 w-4 flex-shrink-0" />
                     <span className="truncate">Configuración</span>
@@ -46,9 +46,7 @@ export const UserProfile = () => {
 
             <div className="border-t border-gray-100">
                 <DropdownItem
-                    href={route('logout')}
-                    method="post"
-                    as="button"
+                    onClick={() => router.post(route('logout'))}
                     className="w-full text-left"
                 >
                     <div className="flex items-center text-red-600">
