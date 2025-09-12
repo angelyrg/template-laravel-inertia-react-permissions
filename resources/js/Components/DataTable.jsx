@@ -20,6 +20,14 @@ const DataTable = ({
     searchPlaceholder = 'Buscar...',
     withFilters = false,
     children,
+    current_page = 1,
+    from = 0,
+    to = 0,
+    total = 0,
+    per_page = 10,
+    last_page = 1,
+    next_page_url = '',
+    prev_page_url = '',
 }) => {
     const [sortField, setSortField] = useState('')
     const [sortDirection, setSortDirection] = useState('asc')
@@ -56,6 +64,7 @@ const DataTable = ({
                 route(route().current(), {
                     ...route().params,
                     search: value,
+                    page: 1,
                 }),
                 {},
                 {
@@ -72,11 +81,13 @@ const DataTable = ({
             acc[key] = ''
             return acc
         }, {})
+        setSearchTerm('')
 
         router.get(
             route(route().current(), {
                 ...route().params,
                 ...clearedFilters,
+                page: 1,
             }),
             {},
             {
@@ -101,10 +112,10 @@ const DataTable = ({
     }
 
     const toggleAllSelection = () => {
-        if (selectedRows.length === data.data.length) {
+        if (selectedRows.length === data.length) {
             setSelectedRows([])
         } else {
-            setSelectedRows(data.data.map((item) => item[primaryKey]))
+            setSelectedRows(data.map((item) => item[primaryKey]))
         }
     }
 
@@ -133,6 +144,32 @@ const DataTable = ({
                 preserveScroll: true,
             })
         }
+    }
+
+    // Función para generar números de página con elipsis
+    const generatePageNumbers = () => {
+        const current = current_page
+        const last = last_page
+        const delta = 2
+        const range = []
+        const rangeWithDots = []
+
+        for (let i = 1; i <= last; i++) {
+            if (i === 1 || i === last || (i >= current - delta && i <= current + delta)) {
+                range.push(i)
+            }
+        }
+
+        let prev = 0
+        for (let i of range) {
+            if (i - prev > 1) {
+                rangeWithDots.push('...')
+            }
+            rangeWithDots.push(i)
+            prev = i
+        }
+
+        return rangeWithDots
     }
 
     return (
@@ -218,10 +255,7 @@ const DataTable = ({
                             >
                                 <input
                                     type="checkbox"
-                                    checked={
-                                        selectedRows.length === data.data.length &&
-                                        data.data.length > 0
-                                    }
+                                    checked={selectedRows.length === data.length && data.length > 0}
                                     onChange={toggleAllSelection}
                                     className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                                 />
@@ -262,8 +296,8 @@ const DataTable = ({
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-200 bg-white">
-                        {data.data.length > 0 ? (
-                            data.data.map((item) => (
+                        {data && data.length > 0 ? (
+                            data.map((item) => (
                                 <tr key={item[primaryKey]} className="hover:bg-gray-50">
                                     {/* Checkbox para selección de fila */}
                                     <td className="whitespace-nowrap px-6 py-4">
@@ -335,53 +369,90 @@ const DataTable = ({
             </div>
 
             {/* Paginación */}
-            {data.meta && (
+            {last_page > 1 && (
                 <div className="border-t border-gray-200 bg-gray-50 px-6 py-4">
                     <div className="flex flex-col items-center justify-between space-y-4 md:flex-row md:space-y-0">
                         <div className="text-sm text-gray-700">
-                            Mostrando <span className="font-medium">{data.meta.from}</span> a{' '}
-                            <span className="font-medium">{data.meta.to}</span> de{' '}
-                            <span className="font-medium">{data.meta.total}</span> resultados
+                            Mostrando <span className="font-medium">{from}</span> a{' '}
+                            <span className="font-medium">{to}</span> de{' '}
+                            <span className="font-medium">{total}</span> resultados
                         </div>
 
-                        <div className="flex space-x-2">
-                            {/* Botón anterior */}
-                            {data.meta.current_page > 1 && (
+                        <div className="flex flex-col items-center space-y-2 sm:flex-row sm:space-x-2 sm:space-y-0">
+                            {prev_page_url && (
                                 <button
-                                    onClick={() => handlePageChange(data.links.prev)}
-                                    className="rounded-md border border-gray-300 px-3 py-1 text-sm text-gray-700 hover:bg-gray-50"
+                                    onClick={() => handlePageChange(prev_page_url)}
+                                    className="flex items-center rounded-md border border-gray-300 px-3 py-1.5 text-sm text-gray-700 hover:bg-gray-50"
                                 >
+                                    <Icon icon="mdi:chevron-left" className="mr-1 h-4 w-4" />
                                     Anterior
                                 </button>
                             )}
 
-                            {/* Números de página */}
-                            {data.meta.links &&
-                                data.meta.links
-                                    .slice(1, -1)
-                                    .map((link, index) => (
+                            <div className="flex flex-wrap justify-center gap-1">
+                                {generatePageNumbers().map((page, index) =>
+                                    page === '...' ? (
+                                        <span
+                                            key={`ellipsis-${index}`}
+                                            className="px-2 py-1 text-gray-500"
+                                        >
+                                            ...
+                                        </span>
+                                    ) : (
                                         <button
-                                            key={index}
-                                            onClick={() => handlePageChange(link.url)}
-                                            className={`rounded-md border px-3 py-1 text-sm ${
-                                                link.active
+                                            key={page}
+                                            onClick={() => {
+                                                const url = route(route().current(), {
+                                                    ...route().params,
+                                                    page: page,
+                                                })
+                                                handlePageChange(url)
+                                            }}
+                                            className={`min-w-[2.5rem] rounded-md border px-3 py-1.5 text-sm ${
+                                                page === current_page
                                                     ? 'border-blue-500 bg-blue-500 text-white'
                                                     : 'border-gray-300 text-gray-700 hover:bg-gray-50'
                                             }`}
-                                            dangerouslySetInnerHTML={{ __html: link.label }}
-                                        />
-                                    ))}
+                                        >
+                                            {page}
+                                        </button>
+                                    )
+                                )}
+                            </div>
 
-                            {/* Botón siguiente */}
-                            {data.meta.current_page < data.meta.last_page && (
+                            {next_page_url && (
                                 <button
-                                    onClick={() => handlePageChange(data.links.next)}
-                                    className="rounded-md border border-gray-300 px-3 py-1 text-sm text-gray-700 hover:bg-gray-50"
+                                    onClick={() => handlePageChange(next_page_url)}
+                                    className="flex items-center rounded-md border border-gray-300 px-3 py-1.5 text-sm text-gray-700 hover:bg-gray-50"
                                 >
                                     Siguiente
+                                    <Icon icon="mdi:chevron-right" className="ml-1 h-4 w-4" />
                                 </button>
                             )}
                         </div>
+                    </div>
+
+                    <div className="mt-4 flex items-center justify-center">
+                        <span className="mr-2 text-sm text-gray-700">Mostrar:</span>
+                        <select
+                            value={per_page}
+                            onChange={(e) => {
+                                const url = route(route().current(), {
+                                    ...route().params,
+                                    per_page: e.target.value,
+                                    page: 1,
+                                })
+                                handlePageChange(url)
+                            }}
+                            className="min-w-16 rounded-md border border-gray-300 px-2 py-1 text-sm"
+                        >
+                            <option value="10">10</option>
+                            <option value="15">15</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select>
+                        <span className="ml-2 text-sm text-gray-700">registros por página</span>
                     </div>
                 </div>
             )}

@@ -100,7 +100,7 @@ const UserIndex = ({ users, filters }) => {
             <div className="py-8">
                 <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
                     <DataTable
-                        data={users}
+                        data={users.data}
                         columns={columns}
                         resource="users"
                         primaryKey="id"
@@ -116,6 +116,17 @@ const UserIndex = ({ users, filters }) => {
                         canView={true}
                         canEdit={true}
                         canDelete={true}
+                        current_page={users.current_page}
+                        from={users.from}
+                        to={users.to}
+                        total={users.total}
+                        per_page={users.per_page}
+                        last_page={users.last_page}
+                        links={users.links}
+                        first_page_url={users.first_page_url}
+                        last_page_url={users.last_page_url}
+                        next_page_url={users.next_page_url}
+                        prev_page_url={users.prev_page_url}
                     >
                         <FilterPanel filters={filterOptions} />
                     </DataTable>
