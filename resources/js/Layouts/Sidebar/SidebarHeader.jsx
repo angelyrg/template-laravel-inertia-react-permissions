@@ -1,21 +1,37 @@
 import { Icon } from '@/Components/ui/Icon'
-import { Link } from '@inertiajs/react'
+import { useLayout } from '@/Contexts/LayoutContext'
 
-import brandLogo from '@images/lyk_logo.webp'
+export const SidebarHeader = () => {
+    const { sidebarCollapsed, setSidebarCollapsed } = useLayout()
 
-export const SidebarHeader = ({ isCollapsed, onToggle }) => {
     return (
-        <div className="flex items-center justify-between border-b border-primary-accent p-4">
-            {!isCollapsed && (
-                <Link href="/">
-                    <img src={brandLogo} className="w-24" alt="LyK" />
-                </Link>
+        <div className="flex items-center justify-between border-b border-gray-200 p-4 dark:border-gray-700">
+            {!sidebarCollapsed && (
+                <div className="flex items-center">
+                    <div className="bg-primary-500 flex h-8 w-8 items-center justify-center rounded-md font-bold text-white">
+                        L
+                    </div>
+                    <span className="ml-2 text-lg font-semibold text-gray-900 dark:text-white">
+                        Logo
+                    </span>
+                </div>
             )}
+
+            {sidebarCollapsed && (
+                <div className="bg-primary-500 mx-auto flex h-8 w-8 items-center justify-center rounded-md font-bold text-white">
+                    L
+                </div>
+            )}
+
             <button
-                onClick={onToggle}
-                className="rounded p-1 transition-colors hover:bg-primary-accent"
+                onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
+                className="hidden rounded-md p-1 text-gray-500 hover:bg-gray-100 md:block dark:text-gray-400 dark:hover:bg-gray-700"
+                aria-label="Toggle sidebar"
             >
-                <Icon icon={isCollapsed ? 'menu' : 'close'} className="h-5 w-5 text-white" />
+                <Icon
+                    icon={sidebarCollapsed ? 'chevron-right' : 'chevron-left'}
+                    className="h-4 w-4"
+                />
             </button>
         </div>
     )

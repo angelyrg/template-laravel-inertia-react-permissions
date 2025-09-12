@@ -1,51 +1,39 @@
-// components/layout/Sidebar/Sidebar.jsx
-import { Icon } from '@/Components/ui/Icon'
+import { useLayout } from '@/Contexts/LayoutContext'
 import { usePage } from '@inertiajs/react'
+import { SidebarConfigSection } from './SidebarConfigSection'
 import { SidebarHeader } from './SidebarHeader'
-import { SidebarNavItem } from './SidebarNavItem'
-import { SidebarUserSection } from './SidebarUserSection'
+import { SidebarNav } from './SidebarNav'
 
-export const Sidebar = ({ isCollapsed, isMobile, isMobileMenuOpen, onToggle }) => {
+export const Sidebar = () => {
+    const { sidebarCollapsed, mobileMenuOpen, setMobileMenuOpen } = useLayout()
     const user = usePage().props.auth.user
 
+    const closeMobileMenu = () => {
+        if (window.innerWidth < 768) {
+            setMobileMenuOpen(false)
+        }
+    }
+
     return (
-        <aside
-            className={` ${isMobile ? 'fixed inset-y-0 left-0 z-30 transform transition-transform duration-300' : 'relative'} ${isMobile && !isMobileMenuOpen ? '-translate-x-full' : 'translate-x-0'} flex flex-col bg-primary text-white ${isCollapsed ? 'w-16' : 'w-56'} `}
-        >
-            <SidebarHeader isCollapsed={isCollapsed} onToggle={onToggle} />
+        <>
+            {mobileMenuOpen && (
+                <div
+                    className="fixed inset-0 z-20 bg-black bg-opacity-50 md:hidden"
+                    onClick={() => setMobileMenuOpen(false)}
+                />
+            )}
 
-            <nav className="flex-1 overflow-y-auto py-4">
-                <div className="space-y-1 ps-2">
-                    <SidebarNavItem
-                        href={route('dashboard')}
-                        icon={<Icon icon="dashboard" className="h-5 w-5" />}
-                        isCollapsed={isCollapsed}
-                        active={route().current('dashboard')}
-                    >
-                        Dashboard
-                    </SidebarNavItem>
+            <aside
+                className={`fixed inset-y-0 left-0 z-30 flex flex-col bg-white shadow-lg transition-all duration-300 ease-in-out md:relative dark:bg-gray-800 ${sidebarCollapsed ? 'w-16' : 'w-64'} ${mobileMenuOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'} `}
+            >
+                <SidebarHeader />
 
-                    <SidebarNavItem
-                        href={route('users.index')}
-                        icon={<Icon icon="users" className="h-5 w-5" />}
-                        isCollapsed={isCollapsed}
-                        active={route().current('users.*')}
-                    >
-                        Users
-                    </SidebarNavItem>
-
-                    <SidebarNavItem
-                        href={route('profile.edit')}
-                        icon={<Icon icon="profile" className="h-5 w-5" />}
-                        isCollapsed={isCollapsed}
-                        active={route().current('profile.edit')}
-                    >
-                        Profile
-                    </SidebarNavItem>
+                <div className="flex-1 overflow-y-auto py-4">
+                    <SidebarNav onItemClick={closeMobileMenu} />
                 </div>
-            </nav>
 
-            <SidebarUserSection user={user} isCollapsed={isCollapsed} />
-        </aside>
+                <SidebarConfigSection user={user} />
+            </aside>
+        </>
     )
 }

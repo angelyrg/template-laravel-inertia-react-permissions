@@ -1,18 +1,17 @@
-import { LayoutProvider, useLayout } from '@/contexts/LayoutContext'
-import { useEffect, useState } from 'react'
+import { LayoutProvider, useLayout } from '@/Contexts/LayoutContext'
+import { useEffect } from 'react'
 import { Navbar } from './Navbar'
 import { Sidebar } from './Sidebar/Sidebar'
 
 const LayoutContent = ({ children, title = 'Dashboard' }) => {
-    const [isMobile, setIsMobile] = useState(false)
     const { setSidebarCollapsed, setMobileMenuOpen } = useLayout()
 
     useEffect(() => {
         const checkScreenSize = () => {
             const mobile = window.innerWidth < 768
-            setIsMobile(mobile)
             if (mobile) {
                 setSidebarCollapsed(true)
+                setMobileMenuOpen(false)
             }
         }
 
@@ -20,24 +19,18 @@ const LayoutContent = ({ children, title = 'Dashboard' }) => {
         window.addEventListener('resize', checkScreenSize)
 
         return () => window.removeEventListener('resize', checkScreenSize)
-    }, [setSidebarCollapsed])
-
-    const toggleMobileMenu = () => {
-        setMobileMenuOpen((prev) => !prev)
-    }
+    }, [setSidebarCollapsed, setMobileMenuOpen])
 
     return (
-        <div className="flex h-screen bg-surface">
+        <div className="flex h-screen bg-gray-50 dark:bg-gray-900">
             <Sidebar />
 
-            <div className={`relative flex flex-1 flex-col transition-all duration-300`}>
-                <Navbar
-                    title={title}
-                    onMenuToggle={toggleMobileMenu}
-                    showMobileMenuButton={isMobile}
-                />
+            <div className="flex flex-1 flex-col overflow-hidden">
+                <Navbar title={title} />
 
-                <main className="flex-1 overflow-y-auto p-4 md:p-6">{children}</main>
+                <main className="flex-1 overflow-y-auto p-4 md:p-6">
+                    <div className="mx-auto max-w-7xl">{children}</div>
+                </main>
             </div>
         </div>
     )
