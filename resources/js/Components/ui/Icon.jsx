@@ -5,7 +5,12 @@ const iconMap = {
     menu: 'mdi:menu',
     close: 'mdi:close',
     chevronDown: 'mdi:chevron-down',
+    chevronLeft: 'mdi:chevron-left',
     chevronRight: 'mdi:chevron-right',
+
+    // Theme
+    moon: 'bxs:moon',
+    sun: 'mingcute:sun-fill',
 
     // Acciones
     logout: 'mdi:logout',

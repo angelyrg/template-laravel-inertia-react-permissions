@@ -33,7 +33,11 @@ export const Navbar = ({ title = 'Dashboard' }) => {
                         aria-label="Toggle sidebar"
                     >
                         <Icon
-                            icon={sidebarCollapsed ? 'chevron-right' : 'chevron-left'}
+                            icon={
+                                sidebarCollapsed
+                                    ? 'mdi:chevron-right-last'
+                                    : 'mdi:chevron-left-first'
+                            }
                             className="h-5 w-5"
                         />
                     </button>
