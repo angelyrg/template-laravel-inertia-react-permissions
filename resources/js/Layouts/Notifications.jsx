@@ -1,8 +1,22 @@
 import { Icon } from '@/Components/ui/Icon'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 export const Notifications = () => {
     const [isOpen, setIsOpen] = useState(false)
+    const dropdownRef = useRef(null)
+
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setIsOpen(false)
+            }
+        }
+
+        document.addEventListener('mousedown', handleClickOutside)
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside)
+        }
+    }, [])
 
     // Datos de ejemplo - en una aplicación real estos vendrían de tu backend
     const notifications = [
@@ -43,10 +57,10 @@ export const Notifications = () => {
     }
 
     return (
-        <div className="relative">
+        <div ref={dropdownRef} className="relative">
             <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="focus:ring-primary-500 relative rounded-md p-2 text-gray-600 hover:bg-gray-100 focus:outline-none focus:ring-2 dark:text-gray-300 dark:hover:bg-gray-700"
+                className="focus:ring-primary-500 relative flex h-12 w-12 items-center justify-center rounded-xl bg-white p-2 text-gray-600 hover:bg-gray-100 focus:outline-none focus:ring-2 dark:text-gray-300 dark:hover:bg-gray-700"
                 aria-label="Notifications"
             >
                 <Icon icon="bell" className="h-5 w-5" />

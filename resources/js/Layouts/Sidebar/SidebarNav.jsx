@@ -6,41 +6,42 @@ import { SidebarNavItem } from './SidebarNavItem'
 const navigationConfig = [
     {
         type: 'item',
+        icon: 'dashboard',
         label: 'Dashboard',
         href: route('dashboard'),
-        icon: 'dashboard',
-        active: route().current('dashboard'),
+        routeName: 'dashboard',
     },
     {
         type: 'item',
+        icon: 'users',
         label: 'Usuarios',
         href: route('users.index'),
-        icon: 'users',
-        active: route().current('users.*'),
+        routeName: 'users.*',
     },
+    // TODO: Estilos para menus tipo grupo
     // {
     //     type: 'group',
-    //     label: 'Administración',
     //     icon: 'settings',
+    //     label: 'Administración',
     //     items: [
     //         {
     //             label: 'Usuarios',
     //             href: route('users.index'),
-    //             active: route().current('users.*'),
+    //             routeName: 'users.*',
     //         },
     //         {
     //             label: 'Roles',
     //             href: route('roles.index'),
-    //             active: route().current('roles.*'),
+    //             routeName: 'roles.*',
     //         },
     //     ],
     // },
     {
         type: 'item',
+        icon: 'profile',
         label: 'Perfil',
         href: route('profile.edit'),
-        icon: 'profile',
-        active: route().current('profile.*'),
+        routeName: 'profile.*',
     },
 ]
 
@@ -57,21 +58,27 @@ export const SidebarNav = ({ onItemClick }) => {
                         icon={item.icon}
                         isCollapsed={sidebarCollapsed}
                     >
-                        {item.items.map((subItem, subIndex) => (
-                            <SidebarNavItem
-                                key={subIndex}
-                                href={subItem.href}
-                                isCollapsed={sidebarCollapsed}
-                                active={subItem.active}
-                                isSubItem={true}
-                                onClick={onItemClick}
-                            >
-                                {subItem.label}
-                            </SidebarNavItem>
-                        ))}
+                        {item.items.map((subItem, subIndex) => {
+                            const isActive = route().current(subItem.routeName)
+
+                            return (
+                                <SidebarNavItem
+                                    key={subIndex}
+                                    href={subItem.href}
+                                    isCollapsed={sidebarCollapsed}
+                                    active={isActive}
+                                    isSubItem={true}
+                                    onClick={onItemClick}
+                                >
+                                    {subItem.label}
+                                </SidebarNavItem>
+                            )
+                        })}
                     </SidebarNavGroup>
                 )
             }
+
+            const isActive = route().current(item.routeName)
 
             return (
                 <SidebarNavItem
@@ -79,7 +86,7 @@ export const SidebarNav = ({ onItemClick }) => {
                     href={item.href}
                     icon={item.icon}
                     isCollapsed={sidebarCollapsed}
-                    active={item.active}
+                    active={isActive}
                     onClick={onItemClick}
                 >
                     {item.label}
@@ -88,5 +95,5 @@ export const SidebarNav = ({ onItemClick }) => {
         })
     }
 
-    return <nav className="space-y-1 px-2">{renderNavigation(navigationConfig)}</nav>
+    return <nav className="relative space-y-1 ps-2">{renderNavigation(navigationConfig)}</nav>
 }

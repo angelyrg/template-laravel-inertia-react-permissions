@@ -10,14 +10,12 @@ export const SidebarNavItem = ({
     isSubItem = false,
     onClick,
 }) => {
-    const baseClasses = `
-    flex items-center px-2 py-2 text-sm font-medium rounded-md
-    transition-colors duration-200 ease-in-out
-    group
+    const baseClasses = `flex items-center relative ps-4 py-3
+        font-medium rounded-l-3xl transition-colors duration-200 ease-in-out group
     ${
         active
-            ? 'bg-primary-100 text-primary-700 dark:bg-primary-900 dark:text-primary-200'
-            : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white'
+            ? 'sidebar-active bg-surface text-primary dark:bg-primary-900 dark:text-primary-200'
+            : 'text-gray-600 text-white hover:text-gray-300 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white'
     }
   `
 
@@ -29,8 +27,8 @@ export const SidebarNavItem = ({
                         icon={icon}
                         className={`h-6 w-6 ${
                             active
-                                ? 'text-primary-500'
-                                : 'text-gray-400 group-hover:text-gray-500 dark:text-gray-400 dark:group-hover:text-gray-300'
+                                ? 'text-primary'
+                                : 'text-white group-hover:text-gray-300 dark:text-gray-400 dark:group-hover:text-gray-300'
                         } `}
                     />
                 </span>

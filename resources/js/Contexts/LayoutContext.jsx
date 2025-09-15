@@ -16,17 +16,17 @@ export const LayoutProvider = ({ children }) => {
     const [currentTheme, setCurrentTheme] = useState('light')
 
     // Detectar preferencia de tema del sistema
-    useEffect(() => {
-        const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
-        setCurrentTheme(mediaQuery.matches ? 'dark' : 'light')
+    // useEffect(() => {
+    //     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
+    //     setCurrentTheme(mediaQuery.matches ? 'dark' : 'light')
 
-        const handleChange = (e) => {
-            setCurrentTheme(e.matches ? 'dark' : 'light')
-        }
+    //     const handleChange = (e) => {
+    //         setCurrentTheme(e.matches ? 'dark' : 'light')
+    //     }
 
-        mediaQuery.addEventListener('change', handleChange)
-        return () => mediaQuery.removeEventListener('change', handleChange)
-    }, [])
+    //     mediaQuery.addEventListener('change', handleChange)
+    //     return () => mediaQuery.removeEventListener('change', handleChange)
+    // }, [])
 
     // Aplicar tema al documento
     useEffect(() => {

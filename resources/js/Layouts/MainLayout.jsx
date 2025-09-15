@@ -22,7 +22,7 @@ const LayoutContent = ({ children, title = 'Dashboard' }) => {
     }, [setSidebarCollapsed, setMobileMenuOpen])
 
     return (
-        <div className="flex h-screen bg-gray-50 dark:bg-gray-900">
+        <div className="flex h-screen bg-surface dark:bg-gray-900">
             <Sidebar />
 
             <div className="flex flex-1 flex-col overflow-hidden">

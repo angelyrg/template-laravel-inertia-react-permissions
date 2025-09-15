@@ -38,3 +38,14 @@ body {
     bottom: -16px;
     transform: rotate(270deg);
 }
+
+
+/* Setting for scrollbar */
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* Firefox */
+* {
+    scrollbar-color: rgba(100, 100, 100, 0.5) transparent;
+}

@@ -26,7 +26,7 @@ export const SidebarConfigSection = ({ user }) => {
             {/* Botón principal de configuración */}
             <button
                 onClick={toggleConfig}
-                className="flex w-full items-center rounded-md p-2 text-sm font-medium text-gray-600 transition-colors duration-200 hover:bg-gray-50 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white"
+                className="flex w-full items-center rounded-md p-2 font-medium text-white transition-colors duration-200 hover:bg-gray-50 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white"
             >
                 <Icon icon="settings" className="h-5 w-5 text-gray-400" />
 

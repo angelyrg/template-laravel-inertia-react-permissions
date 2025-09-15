@@ -24,7 +24,7 @@ export const Sidebar = () => {
             )}
 
             <aside
-                className={`fixed inset-y-0 left-0 z-30 flex flex-col bg-white shadow-lg transition-all duration-300 ease-in-out md:relative dark:bg-gray-800 ${sidebarCollapsed ? 'w-16' : 'w-64'} ${mobileMenuOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'} `}
+                className={`fixed inset-y-0 left-0 z-30 flex flex-col bg-primary text-white transition-all duration-300 ease-in-out dark:bg-gray-800 md:relative ${sidebarCollapsed ? 'w-16' : 'w-64'} ${mobileMenuOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'} `}
             >
                 <SidebarHeader />
 
