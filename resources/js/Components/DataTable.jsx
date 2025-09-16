@@ -191,7 +191,7 @@ const DataTable = ({
                     {canCreate && (
                         <Link
                             href={route(createRoute)}
-                            className="flex items-center rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
+                            className="bg-brand hover:bg-brand flex items-center rounded-md px-4 py-2 text-white"
                         >
                             <Icon icon="mdi:plus" className="mr-1 h-4 w-4" />
                             Crear
@@ -257,7 +257,7 @@ const DataTable = ({
                                     type="checkbox"
                                     checked={selectedRows.length === data.length && data.length > 0}
                                     onChange={toggleAllSelection}
-                                    className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                                    className="text-brand rounded border-gray-300 focus:ring-blue-500"
                                 />
                             </th>
 
@@ -305,7 +305,7 @@ const DataTable = ({
                                             type="checkbox"
                                             checked={selectedRows.includes(item[primaryKey])}
                                             onChange={() => toggleRowSelection(item[primaryKey])}
-                                            className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                                            className="text-brand rounded border-gray-300 focus:ring-blue-500"
                                         />
                                     </td>
 
@@ -324,7 +324,7 @@ const DataTable = ({
                                             {canView && showRoute && (
                                                 <Link
                                                     href={route(showRoute, item[primaryKey])}
-                                                    className="text-blue-600 hover:text-blue-900"
+                                                    className="text-brand hover:text-blue-900"
                                                     title="Ver"
                                                 >
                                                     <Icon icon="mdi:eye" className="h-5 w-5" />

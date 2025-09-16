@@ -6,7 +6,7 @@ import { SidebarNavItem } from './SidebarNavItem'
 const navigationConfig = [
     {
         type: 'item',
-        icon: 'dashboard',
+        icon: 'ic:outline-dashboard',
         label: 'Dashboard',
         href: route('dashboard'),
         routeName: 'dashboard',

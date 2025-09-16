@@ -17,10 +17,14 @@ export default {
             },
             colors: {
                 primary: {
-                    DEFAULT: '#1C3066',
-                    accent: '#354777',
+                    DEFAULT: '#333333',
+                    accent: '#333333',
                 },
-                surface: { DEFAULT: '#E6E8EE' },
+                surface: { DEFAULT: '#E5E5E5' },
+                brand: {
+                    DEFAULT: '#00A997',
+                    secondary: '#F3C12E',
+                },
             },
         },
     },

@@ -7,18 +7,18 @@ export const SidebarHeader = () => {
     } = useLayout()
 
     return (
-        <div className="flex items-center justify-between border-b border-gray-200 p-4 dark:border-gray-700">
+        <div className="flex items-center justify-between border-gray-200 p-4 dark:border-gray-700">
             {!sidebarCollapsed && (
                 <div className="flex items-center">
                     <span className="ml-2 text-lg font-semibold text-white dark:text-white">
-                        Logo
+                        Malba Risk
                     </span>
                 </div>
             )}
 
             {sidebarCollapsed && (
                 <div className="bg-primary-500 mx-auto flex h-8 w-8 items-center justify-center rounded-md font-bold text-white">
-                    L
+                    MR
                 </div>
             )}
 

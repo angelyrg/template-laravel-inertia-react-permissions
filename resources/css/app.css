@@ -21,7 +21,7 @@ body {
     right: 0;
     width: 16px;
     height: 16px;
-    background: #E6E8EE;
+    background: #E5E5E5;
     -webkit-mask-image: radial-gradient(circle at top left, transparent 15px, black 16px);
     -webkit-mask-repeat: no-repeat;
     -webkit-mask-size: 100% 100%;

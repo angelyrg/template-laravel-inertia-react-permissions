@@ -1,6 +1,6 @@
 import { useLayout } from '@/Contexts/LayoutContext'
 import { usePage } from '@inertiajs/react'
-import { SidebarConfigSection } from './SidebarConfigSection'
+// import { SidebarConfigSection } from './SidebarConfigSection'
 import { SidebarHeader } from './SidebarHeader'
 import { SidebarNav } from './SidebarNav'
 
@@ -32,7 +32,7 @@ export const Sidebar = () => {
                     <SidebarNav onItemClick={closeMobileMenu} />
                 </div>
 
-                <SidebarConfigSection user={user} />
+                {/* <SidebarConfigSection user={user} /> */}
             </aside>
         </>
     )
